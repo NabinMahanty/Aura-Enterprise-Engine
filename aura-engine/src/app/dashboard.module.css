@@ -1,0 +1,56 @@
+.dashboardPage {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.dashboardHeader {
+  margin-bottom: var(--space-7);
+}
+
+.welcomeText {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.dashboardTitle {
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.dashboardSubtitle {
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.timestamp {
+  margin-top: var(--space-7);
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+@media (max-width: 1200px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardTitle {
+    font-size: var(--fs-2xl);
+  }
+}

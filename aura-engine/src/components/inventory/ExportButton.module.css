@@ -1,0 +1,40 @@
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(135deg, hsl(142, 71%, 40%), hsl(142, 71%, 35%));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.exportBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, hsl(142, 71%, 45%), hsl(142, 71%, 40%));
+  box-shadow: 0 4px 16px hsla(142, 71%, 45%, 0.3);
+  transform: translateY(-1px);
+}
+
+.exportBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.exportBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.exportIcon {
+  font-size: var(--fs-md);
+}
+
+.exportCount {
+  background: hsla(0, 0%, 100%, 0.2);
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+}
