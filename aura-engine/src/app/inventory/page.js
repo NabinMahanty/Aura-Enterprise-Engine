@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useInventory } from '@/hooks/useInventory';
@@ -12,16 +12,9 @@ import ExportButton from '@/components/inventory/ExportButton';
 import styles from './inventory.module.css';
 
 /**
- * Inventory Page
- *
- * Enterprise data grid page with:
- * - Debounced omnisearch (500ms)
- * - Server-side pagination (50 items/page)
- * - Advanced column filters (category, stock, price)
- * - Sortable columns
- * - CSV export of filtered data
+ * Inventory Content
  */
-export default function InventoryPage() {
+function InventoryContent() {
   const searchParams = useSearchParams();
 
   // Search state
@@ -173,5 +166,23 @@ export default function InventoryPage() {
         />
       )}
     </div>
+  );
+}
+
+/**
+ * Inventory Page
+ *
+ * Enterprise data grid page with:
+ * - Debounced omnisearch (500ms)
+ * - Server-side pagination (50 items/page)
+ * - Advanced column filters (category, stock, price)
+ * - Sortable columns
+ * - CSV export of filtered data
+ */
+export default function InventoryPage() {
+  return (
+    <Suspense fallback={<div className={styles.inventoryPage}><div className="skeleton" style={{ width: '100%', height: '500px', borderRadius: '8px' }}></div></div>}>
+      <InventoryContent />
+    </Suspense>
   );
 }
