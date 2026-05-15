@@ -1,110 +1,144 @@
-# 🚀 Aura Enterprise Engine
+# Aura Enterprise Engine
 
-> Lightning-fast enterprise inventory management dashboard built for Apex Logistics & Retail Solutions.
+**Aura Enterprise Engine** (part of the Apex Enterprise Inventory system) is a high-performance, enterprise-grade inventory management and analytics platform. Built with a focus on speed, data density, and efficiency, it features a unique brutalist, high-contrast, text-first design system tailored to minimize visual distractions and maximize operational throughput.
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=flat-square&logo=mongodb)
-![Recharts](https://img.shields.io/badge/Recharts-2.x-blue?style=flat-square)
+## 🚀 Key Features
 
-## 📋 Overview
+### 1. Advanced Analytics & Valuation
+- **Real-Time Computation:** Computes total inventory valuation dynamically (price × quantity) using powerful MongoDB aggregation pipelines.
+- **Categorical Breakdown:** Aggregates stock levels and valuation by product category.
+- **Restock Priority:** Automatically identifies items low in stock and prioritizes them for restocking.
 
-Aura Engine is a modern, data-dense enterprise dashboard designed to handle **50,000+ SKUs** without performance degradation. It replaces legacy SAP/Excel workflows with a responsive, real-time web interface.
+### 2. Optimized Search & Filtering
+- **Debounced Input:** Implements a custom 500ms debounced search hook to prevent API flooding while typing.
+- **Instant Filtering:** Allows users to filter products by category or stock status seamlessly.
 
-## ✨ Key Features
+### 3. High-Performance Data Handling
+- **Server-Side Pagination:** Efficient handling of massive datasets (tested with 50,000+ records) utilizing concurrent `skip()`, `limit()`, and `countDocuments()` execution.
+- **Client-Side CSV Export:** Zero-latency data exports generated directly in the browser via the native Blob API (`text/csv`), eliminating unnecessary server round-trips.
 
-### Enterprise Data Grid
-- **Server-Side Pagination** — Only 50 items fetched per page (no DOM crashes)
-- **Debounced Omnisearch** — 500ms debounce prevents API flooding
-- **Advanced Filters** — Category dropdown, stock level slider, price range inputs
-- **Sortable Columns** — Click any header to sort ascending/descending
-- **Sticky Headers** — Column headers stay visible during scroll
+### 4. Enterprise-Grade Design System
+- **Brutalist Aesthetics:** A high-contrast, black-and-white minimalist UI that relies almost entirely on typography and strict layouts, prioritizing information over decoration.
+- **Data-Dense Tables:** Optimized for viewing large amounts of inventory data at once on wide enterprise monitors.
 
-### Analytics Command Center
-- **KPI Summary Cards** — Total SKUs, Inventory Value, Low Stock, Out of Stock
-- **Restock Priority Chart** — Top 10 lowest stock items (color-coded bar chart)
-- **Portfolio Distribution** — Inventory valuation by category (donut chart)
+## 🛠 Technology Stack
 
-### Export Module
-- **CSV Export** — Download currently filtered data as CSV (client-side Blob)
-
-## 🛠 Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 14 (App Router) |
-| Database | MongoDB Atlas |
-| ODM | Mongoose |
-| Charts | Recharts |
-| Styling | Vanilla CSS (CSS Modules) |
-| Seeding | Faker.js |
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- MongoDB Atlas cluster (or local MongoDB)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <repo-url>
-cd aura-engine
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your MongoDB URI
-
-# Start development server
-npm run dev
-```
-
-### Seed the Database
-
-Click the **"🌱 Seed Database"** button in the top navigation to populate 50,000 products, or trigger it via API:
-
-```bash
-curl -X POST http://localhost:3000/api/seed
-```
+- **Frontend:** Next.js (App Router), React, TailwindCSS
+- **Backend:** Next.js Server Components, Next.js API Routes, Node.js
+- **Database:** MongoDB Atlas, Mongoose ODM
+- **Utilities:** Faker.js (for data seeding)
 
 ## 📁 Project Structure
 
+```text
+aura-engine/
+├── app/                  # Next.js App Router (Pages, Layouts, API Routes)
+│   ├── api/              # Backend API routes (inventory, analytics)
+│   ├── layout.tsx        # Root layout with global styles and providers
+│   └── page.tsx          # Main dashboard view
+├── components/           # Reusable React components
+│   ├── ui/               # Core UI elements (buttons, inputs, skeleton loaders)
+│   └── dashboard/        # Complex dashboard widgets (tables, analytics cards)
+├── lib/                  # Utility functions and database connection
+│   └── db.js             # Mongoose connection logic
+├── models/               # Mongoose schemas (e.g., InventoryItem)
+├── public/               # Static assets
+└── styles/               # Global CSS and Tailwind configurations
 ```
-src/
-├── app/                    # Next.js App Router pages & API routes
-│   ├── api/inventory/      # Paginated inventory endpoint
-│   ├── api/analytics/      # Aggregation pipeline endpoint
-│   ├── api/seed/           # Database seeder endpoint
-│   ├── inventory/          # Inventory data grid page
-│   └── page.js             # Dashboard (Command Center)
-├── components/
-│   ├── dashboard/          # KPI Cards, Charts
-│   ├── inventory/          # DataGrid, Filters, Search, Pagination
-│   └── layout/             # Sidebar, Navbar, AppShell
-├── hooks/                  # Custom React hooks
-├── lib/                    # DB connection, constants
-└── models/                 # Mongoose schemas
-```
+
+## 📦 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- MongoDB Atlas cluster (or local MongoDB instance)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd aura-engine
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   Create a `.env.local` file in the root directory. You will need to define the following variables:
+   ```env
+   # The connection string for your MongoDB database
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/aura_engine?retryWrites=true&w=majority
+   
+   # Base URL for the application (useful for absolute API calls)
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
+
+4. **Seed the Database (Optional):**
+   To populate the database with realistic test data (up to 50,000 records), run the seed script:
+   ```bash
+   npm run seed
+   ```
+   *Note: Data is inserted in batches of 5,000 to prevent database timeout errors.*
+
+5. **Run the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📡 API Reference
 
 ### `GET /api/inventory`
-Server-side paginated inventory with search, filters, and sorting.
+Retrieves paginated inventory items with optional search and sorting parameters.
 
-| Param | Type | Default | Description |
-|---|---|---|---|
-| page | number | 1 | Page number |
-| limit | number | 50 | Items per page |
-| search | string | — | Text search |
-| category | string | — | Category filter |
-| sortBy | string | name | Sort field |
-| sortOrder | string | asc | Sort direction |
+**Query Parameters:**
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `page` | integer | `1` | Page number for pagination |
+| `limit` | integer | `10` | Number of items per page |
+| `search` | string | `""` | Search query for item names or SKUs |
+| `category`| string | `""` | Filter items by specific category |
+| `sortOrder` | string | `asc` | Sort direction (`asc` or `desc`) |
+
+**Example Response:**
+```json
+{
+  "data": [
+    {
+      "_id": "60d5ecb8b392d7... ",
+      "name": "Enterprise Server Rack",
+      "sku": "SRV-RACK-001",
+      "category": "Hardware",
+      "price": 1200.00,
+      "quantity": 15
+    }
+  ],
+  "pagination": {
+    "total": 50000,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 5000
+  }
+}
+```
 
 ### `GET /api/analytics`
-Aggregated analytics data for the dashboard widgets.
+Retrieves aggregated analytics data (valuation, category breakdowns, restock priority) for the dashboard widgets.
+
+**Example Response:**
+```json
+{
+  "totalValuation": 1250000,
+  "totalItems": 50000,
+  "lowStockAlerts": 120,
+  "categoryBreakdown": [
+    { "_id": "Electronics", "count": 15000, "valuation": 500000 },
+    { "_id": "Hardware", "count": 35000, "valuation": 750000 }
+  ]
+}
+```
 
 ## 📄 License
 
